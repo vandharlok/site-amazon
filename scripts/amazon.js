@@ -1,29 +1,32 @@
 
 //variavel que vai armazenar cada produto novo 
 let productsHTML= '' ;
+const buttonPrimary= '';
 
-produts.forEach((produts) => {
+
+
+products.forEach((products) => {
   productsHTML += `
         <div class="product-container">
             <div class="product-image-container">
                 <img class="product-image"
-                src="${produts.image}">
+                src="${products.image}">
             </div>
 
             <div class="product-name limit-text-to-2-lines">
-                ${produts.name}
+                ${products.name}
             </div>
 
             <div class="product-rating-container">
                 <img class="product-rating-stars"
-                src="images/ratings/rating-${produts.rating.stars * 10}.png">
+                src="images/ratings/rating-${products.rating.stars * 10}.png">
                 <div class="product-rating-count link-primary">
-                ${produts.rating.count}
+                ${products.rating.count}
                 </div>
             </div>
 
             <div class="product-price"> <!-- tofixed deixa 2 casas decimais -->
-                $${(produts.priceCents / 100).toFixed(2)} 
+                $${(products.priceCents / 100).toFixed(2)} 
             </div>
 
             <div class="product-quantity-container">
@@ -48,7 +51,8 @@ produts.forEach((produts) => {
                 Added
             </div>
 
-            <button class="add-to-cart-button button-primary">
+            <button class="add-to-cart-button button-primary js-add-to-cart " 
+            data-product-id="${products.id}">
                 Add to Cart
             </button>
             </div>
@@ -57,10 +61,39 @@ produts.forEach((produts) => {
 
 
 document.addEventListener("DOMContentLoaded", (event) => {
-  document.querySelector(".js-produts-grid").innerHTML = productsHTML;
+    document.querySelector(".js-products-grid").innerHTML = productsHTML;
+    document.querySelectorAll(".js-add-to-cart").forEach((button) => {
+
+      button.addEventListener("click", () => {
+        //the function that run when we click the button
+        const productId= button.dataset.productId;
+        let matchingItem;
+
+        //looking if the product is already in the cart with this function
+        matchingItem = cart.find((item) => item.productId === productId);
+
+        if(matchingItem){
+            matchingItem.quantity+= 1;
+            }
+        else{
+            cart.push({
+              productId: productId,
+              quantity: 1,
+            });
+            }
+
+
+            console.log(cart);
+        })
+
+       
+        
+      });
+
+    });
 
 
 
 
+//aki estou pegando uma lista de todos os botoes de adicionar ao carrinho, e podemos lopar esses botoes
 
-});
