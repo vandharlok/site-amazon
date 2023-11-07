@@ -83,12 +83,26 @@ document.addEventListener("DOMContentLoaded", (event) => {
             }
 
 
-            console.log(cart);
-        })
-
+        //getting the quantity with the button add to cart
+        let cartQuantity = 0;
+        cart.forEach((id) => {
+          cartQuantity += id.quantity;
+        });
+        //this code make the interative change of the quantity in the website cart, increasing the value each buy
+        document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
        
+        })
+        
+        
+        
+        
+        
         
       });
+      
+
+      
+    
 
     });
 
