@@ -1,4 +1,5 @@
 import {cart} from '../data/cart.js';
+import {products} from '../data/products.js'
 //variavel que vai armazenar cada produto novo 
 let productsHTML= '' ;
 const buttonPrimary= '';
