@@ -1,4 +1,4 @@
-
+import {cart} from '../data/cart.js';
 //variavel que vai armazenar cada produto novo 
 let productsHTML= '' ;
 const buttonPrimary= '';
@@ -90,24 +90,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
         });
         //this code make the interative change of the quantity in the website cart, increasing the value each buy
         document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
-       
         })
-        
-        
-        
-        
-        
-        
       });
-      
-
-      
-    
-
     });
-
-
-
 
 //aki estou pegando uma lista de todos os botoes de adicionar ao carrinho, e podemos lopar esses botoes
 
