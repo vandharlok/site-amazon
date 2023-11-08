@@ -1,4 +1,4 @@
-import {cart} from '../data/cart.js';
+import {cart, addToCart} from '../data/cart.js';
 import {products} from '../data/products.js'
 //variavel que vai armazenar cada produto novo 
 let productsHTML= '' ;
@@ -61,36 +61,25 @@ products.forEach((products) => {
 });
 
 
+function updateCartQuantity(){
+    //getting the quantity with the button add to cart
+    let cartQuantity = 0;
+    cart.forEach((cartItem) => {
+        cartQuantity += cartItem.quantity;
+    });
+    //this code make the interative change of the quantity in the website cart, increasing the value each buy
+    document.querySelector(".js-cart-quantity").innerHTML = cartQuantity;
+}
+
 document.addEventListener("DOMContentLoaded", (event) => {
     document.querySelector(".js-products-grid").innerHTML = productsHTML;
     document.querySelectorAll(".js-add-to-cart").forEach((button) => {
-
-      button.addEventListener("click", () => {
+        button.addEventListener("click", () => {
         //the function that run when we click the button
         const productId= button.dataset.productId;
-        let matchingItem;
-
-        //looking if the product is already in the cart with this function
-        matchingItem = cart.find((item) => item.productId === productId);
-
-        if(matchingItem){
-            matchingItem.quantity+= 1;
-            }
-        else{
-            cart.push({
-              productId: productId,
-              quantity: 1,
-            });
-            }
-
-
-        //getting the quantity with the button add to cart
-        let cartQuantity = 0;
-        cart.forEach((id) => {
-          cartQuantity += id.quantity;
-        });
-        //this code make the interative change of the quantity in the website cart, increasing the value each buy
-        document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
+        addToCart(productId);
+        updateCartQuantity();
+        
         })
       });
     });
