@@ -27,7 +27,8 @@ cart.forEach((cartItem) => {
     }) // a parte do input selector dando o valor do id, faz com que eu possa selecionar os outros seletores, ja que eu posso slecionar apenas um com o mesmo nome, e quando passo o 
     // id, posso ser unico para cada name.
     cartSummaryHTML += 
-`   <div class="cart-item-container">
+`   <div class="cart-item-container 
+    js-cart-item-container-${matchingProduct.id}"> 
         <div class="delivery-date">
             Delivery date: Tuesday, June 21
         </div>
@@ -121,7 +122,11 @@ document.querySelectorAll('.js-delete-link')
             const productId= link.dataset.productId; 
             removeFromCart(productId);
             
-            //console.log(cart);
+            const container_product=document.querySelector(`.js-cart-item-container-${productId}`);
+            console.log(container_product);
+            
+            container_product.remove();
+            
             
             
         })
