@@ -1,4 +1,10 @@
-export let cart = [
+//JSON.parse convert the string of localstore to array again
+//
+
+export let cart = JSON.parse(localStorage.getItem('cart'));
+/*
+
+[
   {
     productId: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
     quantity: 1,
@@ -14,6 +20,12 @@ export let cart = [
   
  
 ];
+*/
+//the localstore just save strings, so, i ve to convert the cart in string,
+// receive two parameters, the name of i wanna save, and the data, both of them in strings 
+function saveLocalStore(){
+  localStorage.setItem('cart',JSON.stringify(cart));
+}
 
 export function addToCart(productId) {
   let matchingItem;
@@ -26,6 +38,7 @@ export function addToCart(productId) {
       productId: productId,
       quantity: 1,
     });
+    saveLocalStore();
   }
 }
 //this function create a new array of products, that include all products that i want, except that, that i delete, so, i create a new cart, and push all elements except the reference from the function
@@ -41,8 +54,8 @@ export function removeFromCart(productId){
       console.log('Item removido.');
     }
   });
-  cart=newCart;
-  console.log('Carrinho após a tentativa de remoção:', cart);
+  cart=newCart;; 
+  saveLocalStore();
 } 
 
 //this function remove the item from the cart
