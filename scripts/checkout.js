@@ -4,7 +4,7 @@ import { formatCurrency } from './utils/money.js';
 import { removeFromCart } from '../data/cart.js';
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
 import {deliveryOptions} from '../data/deliveryOptions.js'
-
+import { updateDeliveryOption } from '../data/cart.js';
 //variavel que vai receber o html para toda vez atualizar meu html com os novos itens
 // do carrinho
 let cartSummaryHTML=""
@@ -128,11 +128,14 @@ function deliveryOptionsHTML(matchingProduct,cartItem) {
         
         html +=
 
-        `<div class="delivery-option">
+        `<div class="delivery-option js-delivery-option" 
+        data-product-id="${matchingProduct.id}"
+        data-delivery-option-id="${deliveryOption.id}">
+
         <input type="radio"
         ${isChecked ? 'checked' :"" }
         class="delivery-option-input"
-        name="delivery-option-${matchingProduct.id}">
+        name="delivery-option-${matchingProduct.id}"> 
         <div>
         <div class="delivery-option-date">
             ${dateString};
@@ -151,24 +154,37 @@ function deliveryOptionsHTML(matchingProduct,cartItem) {
 //gererating the html automatically
 
 document.addEventListener("DOMContentLoaded", (event) => {
-document.querySelector('.js-order-summary').innerHTML= cartSummaryHTML;
-document.querySelectorAll('.js-delete-link')
-    .forEach((link) => {
-        link.addEventListener('click', () => {
-            const productId= link.dataset.productId; 
-            removeFromCart(productId);
+    document.querySelector('.js-order-summary').innerHTML= cartSummaryHTML;
+    document.querySelectorAll('.js-delete-link')
+        .forEach((link) => {
+            link.addEventListener('click', () => {
+                const productId= link.dataset.productId; 
+                removeFromCart(productId);
+                
+                const container_product=document.querySelector(`.js-cart-item-container-${productId}`);
+                console.log(container_product);
+                
+                container_product.remove();
+                
+                
+                
+            })
             
-            const container_product=document.querySelector(`.js-cart-item-container-${productId}`);
-            console.log(container_product);
-            
-            container_product.remove();
-            
-            
-            
-        })
-        
 
-    })
+        })
+    document.querySelectorAll(".js-delivery-option")
+        .forEach((element) => {
+            element.addEventListener('click', () => {
+                const {productId,deliveryOptionId}=element.dataset;
+                //const productid=element.dataset.productid
+                //const delive..=element.dataset.deli...
+                updateDeliveryOption(productId,deliveryOptionId);
+
+            })
+
+
+            }
+        )
     
 });
 //selecionando todos delete link pela classe dele, uso o querysecletor all, faco um loop por todos eles adicionado o evento de click
