@@ -185,6 +185,7 @@ function renderOrderSummary() {
                     //depois de uploadar os dados , eu dou rerun no html automatico 
                     updateDeliveryOption(productId,deliveryOptionId);
                     renderOrderSummary();
+                    //i do not believe
                     
 
 
